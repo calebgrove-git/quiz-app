@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,700&display=swap');
+* {
+  font-family: 'Titillium Web', sans-serif;
+}
+body {
+  background-size: cover;
+}
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5vw;
+  margin-bottom: -5vw;
+}
+#quizTitle {
+  margin-top: 2.7vw;
+  margin-left: 1vw;
+}
+.headerItem {
+  width: 40%;
+}
+header img {
+  height: 100;
+}
+header #quizTitle {
+  font-size: 9vw;
+}
+main {
+  color: #fff;
+  background-color: #21609b;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+  margin: auto;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+  font-size: 1.1em;
+}
+main h1 {
+  margin-bottom: 10px;
+}
+
+#quiz-submit,
+#next,
+#restart {
+  width: 7em;
+  height: 2em;
+  align-self: center;
+  font-size: 30px;
+}
+#quiz-submit:hover,
+#next:hover,
+#restart:hover {
+  background-color: black;
+  color: #21609b;
+}
+#quiz-answers {
+  align-self: center;
+}
+#score {
+  align-self: center;
+}
+form {
+  width: auto;
+}
+form ul {
+  list-style: none;
+  list-style-position: outside;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+form ul li input {
+  margin-right: 10px;
+}
+
+.center {
+  text-align: center;
+}
+form ul li {
+  text-align: left;
+  padding-right: 5px;
+  font-size: 18px;
+}
+a:hover {
+  color: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+  main {
+    font-size: 1.5em;
+  }
+  form ul {
+    padding: 0px;
+  }
+
+  form ul li {
+    text-align: center;
+    font-size: 30px;
+  }
+}
