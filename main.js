@@ -59,7 +59,7 @@ function nextQuestion() {
     let i = STORE.thisQuestion;
     if (i === STORE.allQuestions.length) {
       $('main').html(
-        `<h1 class="center">End of Quiz</h1><button type="submit" id="restart" name="restart">Restart Quiz</button>`
+        `<h2 class="center">End of Quiz</h2><button type="submit" id="restart" name="restart">Restart Quiz</button>`
       );
       displayScore();
     } else {
@@ -72,7 +72,7 @@ function nextQuestion() {
 //displays screen for correct answer
 function correctAnswer() {
   $('main').html(
-    `<h1 class="center">That is correct!</h1><button type="submit" id="next" name="next question">Next</button>`
+    `<h2 class="center">That is correct!</h2><button type="submit" id="next" name="next question">Next</button>`
   );
   STORE.yourScore++;
   displayScore();
@@ -81,7 +81,7 @@ function correctAnswer() {
 function incorrectAnswer() {
   let i = STORE.thisQuestion - 1;
   $('main').html(
-    `<h1 class="center">That is incorrect.</h1>
+    `<h2 class="center">That is incorrect.</h2>
     <h2 class="center">The correct answer was:   ` +
       STORE.allQuestions[i].correctAnswer +
       `<br> If you would like to learn more about this answer, <a href="` +
