@@ -81,10 +81,10 @@ function correctAnswer() {
 function incorrectAnswer() {
   let i = STORE.thisQuestion - 1;
   $('main').html(
-    `<h1 class="center">That is incorrect</h1>
+    `<h1 class="center">That is incorrect.</h1>
     <h2 class="center">The correct answer was:   ` +
       STORE.allQuestions[i].correctAnswer +
-      `<br> If you would like to learn more about this answer <a href="` +
+      `<br> If you would like to learn more about this answer, <a href="` +
       STORE.allQuestions[i].answerLink +
       `" target="_blank"> click here!</a></h2>
       <button type="submit" id="next" name="next question">Next</button>`
@@ -169,7 +169,7 @@ const STORE = {
     },
     {
       question:
-        'What is the correct jQuery to set all div elements to 100 pixels wide',
+        'What is the correct jQuery to set all div elements to 100 pixels wide?',
       answers: [
         "$('div').css('width','100px')",
         "$('div.css')('width','100px')",
@@ -181,7 +181,7 @@ const STORE = {
     },
     {
       question:
-        ' _____ is used to stop animations or effects before they are finished',
+        ' ____ is used to stop animations or effects before they are finished.',
       answers: ['.quit()', '.remove()', '.stop()', '.toggle()'],
       correctAnswer: '.stop()',
       answerLink: 'ht`tps://www.w3schools.com/jquery/jquery_stop.asp',
@@ -209,7 +209,7 @@ const STORE = {
       answerLink: 'https://www.w3schools.com/js/js_htmldom.asp',
     },
     {
-      question: '___ stops event propagation in jQuery',
+      question: '____ stops event propagation in jQuery',
       answers: [
         'event.stopProp()',
         'event.quit()',
