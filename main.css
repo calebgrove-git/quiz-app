@@ -44,7 +44,7 @@ main {
 main h1 {
   margin-bottom: 10px;
 }
-
+#start,
 #quiz-submit,
 #next,
 #restart {
@@ -53,6 +53,7 @@ main h1 {
   align-self: center;
   font-size: 30px;
 }
+#start:hover,
 #quiz-submit:hover,
 #next:hover,
 #restart:hover {
