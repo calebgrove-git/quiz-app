@@ -1,133 +1,3 @@
-//Starts the quiz
-function startQuiz() {
-  $('#start').on('click', function (e) {
-    displayQuestion();
-    displayAnswers();
-    displayScore();
-    e.preventDefault();
-  });
-}
-//Displays score and current question
-function displayScore() {
-  $('main').append(
-    `<h2 class="center">Your Score    ` +
-      STORE.yourScore +
-      `/` +
-      STORE.allQuestions.length +
-      `<br>Current Question    ` +
-      STORE.thisQuestion +
-      `/` +
-      STORE.allQuestions.length +
-      `</h2>`
-  );
-}
-//displays the current question
-function displayQuestion() {
-  let i = STORE.thisQuestion;
-  let html =
-    `<form class="center"><h2 class="center"id="quiz-main">` +
-    STORE.allQuestions[i].question +
-    `</h2>
- <ul id="quiz-answers">
- </ul>
- <button id="quiz-submit" type="submit" name="submit">submit</button></form>`;
-  $('main').html(html);
-}
-//displays answers for the current question
-function displayAnswers() {
-  let i = STORE.thisQuestion;
-  let k = 1;
-  STORE.allQuestions[i].answers.forEach((answer) => {
-    $('ul').append(
-      `<li><input type="radio" name="answer" id="` +
-        k +
-        `" value="` +
-        answer +
-        `"><label for="` +
-        k +
-        `">` +
-        answer +
-        `</label></li>`
-    );
-    k++;
-  });
-  STORE.thisQuestion++;
-}
-//handles the next question button
-function nextQuestion() {
-  $('body').on('click', '#next', function () {
-    let i = STORE.thisQuestion;
-    if (i === STORE.allQuestions.length) {
-      $('main').html(
-        `<h2 class="center">End of Quiz</h2><button type="submit" id="restart" name="restart">Restart Quiz</button>`
-      );
-      displayScore();
-    } else {
-      displayQuestion();
-      displayAnswers();
-      displayScore();
-    }
-  });
-}
-//displays screen for correct answer
-function correctAnswer() {
-  $('main').html(
-    `<h2 class="center">That is correct!</h2><button type="submit" id="next" name="next question">Next</button>`
-  );
-  STORE.yourScore++;
-  displayScore();
-}
-//displays screen for incorect answer
-function incorrectAnswer() {
-  let i = STORE.thisQuestion - 1;
-  $('main').html(
-    `<h2 class="center">That is incorrect.</h2>
-    <h2 class="center">The correct answer was:   ` +
-      STORE.allQuestions[i].correctAnswer +
-      `<br> If you would like to learn more about this answer, <a href="` +
-      STORE.allQuestions[i].answerLink +
-      `" target="_blank"> click here!</a></h2>
-      <button type="submit" id="next" name="next question">Next</button>`
-  );
-  displayScore();
-}
-//handles the submit answer button
-function submitAnswer() {
-  $('body').on('click', '#quiz-submit', function (e) {
-    e.preventDefault();
-    let i = STORE.thisQuestion - 1;
-    let correct = STORE.allQuestions[i].correctAnswer;
-    let selectedOption = $('input[name=answer]:checked').val();
-    if (selectedOption === undefined) {
-      alert('You must select an answer');
-      return;
-    }
-    if (selectedOption === correct) {
-      correctAnswer();
-    } else {
-      incorrectAnswer();
-    }
-  });
-}
-//handles the restart quiz button
-function restartQuiz() {
-  $('body').on('click', '#restart', function (e) {
-    STORE.thisQuestion = 0;
-    STORE.yourScore = 0;
-    displayQuestion();
-    displayAnswers();
-    displayScore();
-  });
-}
-//main function
-function handleQuiz() {
-  startQuiz();
-  submitAnswer();
-  displayScore();
-  nextQuestion();
-  restartQuiz();
-}
-//questions object
 const STORE = {
   allQuestions: [
     {
@@ -235,5 +105,155 @@ const STORE = {
   thisQuestion: 0,
   yourScore: 0,
 };
+
+//Starts the quiz
+function startQuiz() {
+  $('#start').on('click', function (e) {
+    displayQuestion();
+    displayAnswers();
+    displayScore();
+    e.preventDefault();
+  });
+}
+//returns score HTML
+function scoreHTML() {
+  return (
+    `<h2 class="center">Your Score    ` +
+    STORE.yourScore +
+    `/` +
+    STORE.allQuestions.length +
+    `<br>Current Question    ` +
+    STORE.thisQuestion +
+    `/` +
+    STORE.allQuestions.length +
+    `</h2>`
+  );
+}
+//Displays score and current question
+function displayScore() {
+  $('main').append(scoreHTML());
+}
+//returns question html
+function questionHTML(i) {
+  return (
+    `<form class="center"><h2 class="center"id="quiz-main">` +
+    STORE.allQuestions[i].question +
+    `</h2>
+<ul id="quiz-answers">
+</ul>
+<button id="quiz-submit" type="submit" name="submit">submit</button></form>`
+  );
+}
+//displays the current question
+function displayQuestion() {
+  let i = STORE.thisQuestion;
+  $('main').html(questionHTML(i));
+}
+//returns answer html
+function answerHTML(k, answer) {
+  return (
+    `<li><input required type="radio" name="answer" id="` +
+    k +
+    `" value="` +
+    answer +
+    `"><label for="` +
+    k +
+    `">` +
+    answer +
+    `</label></li>`
+  );
+}
+//displays answers for the current question
+function displayAnswers() {
+  let i = STORE.thisQuestion;
+  let k = 1;
+  STORE.allQuestions[i].answers.forEach((answer) => {
+    $('ul').append(answerHTML(k, answer));
+    k++;
+  }),
+    STORE.thisQuestion++;
+}
+//returns end of quiz html
+function quizEndHTML() {
+  return `<h2 class="center">End of Quiz</h2><button type="submit" id="restart" name="restart">Restart Quiz</button>`;
+}
+//handles the next question button
+function nextQuestion() {
+  $('body').on('click', '#next', function () {
+    let i = STORE.thisQuestion;
+    if (i === STORE.allQuestions.length) {
+      $('main').html(quizEndHTML());
+      displayScore();
+    } else {
+      displayQuestion();
+      displayAnswers();
+      displayScore();
+    }
+  });
+}
+//returns correct answer html
+function correctAnswerHTML() {
+  return `<h2 class="center">That is correct!</h2><button type="submit" id="next" name="next question">Next</button>`;
+}
+//displays screen for correct answer
+function correctAnswer() {
+  $('main').html(correctAnswerHTML());
+  STORE.yourScore++;
+  displayScore();
+}
+//returns incorrect answer html
+function incorrectAnswerHTML(i) {
+  return (
+    `<h2 class="center">That is incorrect.</h2>
+  <h2 class="center">The correct answer was:   ` +
+    STORE.allQuestions[i].correctAnswer +
+    `<br> If you would like to learn more about this answer, <a href="` +
+    STORE.allQuestions[i].answerLink +
+    `" target="_blank"> click here!</a></h2>
+    <button type="submit" id="next" name="next question">Next</button>`
+  );
+}
+//displays screen for incorect answer
+function incorrectAnswer() {
+  let i = STORE.thisQuestion - 1;
+  $('main').html(incorrectAnswerHTML(i));
+  displayScore();
+}
+//handles the submit answer button
+function submitAnswer() {
+  $('body').on('click', '#quiz-submit', function (e) {
+    e.preventDefault();
+    let i = STORE.thisQuestion - 1;
+    let correct = STORE.allQuestions[i].correctAnswer;
+    let selectedOption = $('input[name=answer]:checked').val();
+    if (selectedOption === undefined) {
+      alert('You must select an answer');
+      return;
+    }
+    if (selectedOption === correct) {
+      correctAnswer();
+    } else {
+      incorrectAnswer();
+    }
+  });
+}
+//handles the restart quiz button
+function restartQuiz() {
+  $('body').on('click', '#restart', function (e) {
+    STORE.thisQuestion = 0;
+    STORE.yourScore = 0;
+    displayQuestion();
+    displayAnswers();
+    displayScore();
+  });
+}
+//main function
+function handleQuiz() {
+  startQuiz();
+  submitAnswer();
+  displayScore();
+  nextQuestion();
+  restartQuiz();
+}
 //document ready function
 $(handleQuiz);
